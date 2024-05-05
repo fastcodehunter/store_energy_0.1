@@ -1,0 +1,73 @@
+
+{% extends "home/base.html" %}
+{% load static %}
+{% block style %} <link rel="stylesheet" href={% static "home\order\style.css" %}>{% endblock style %} 
+
+
+{% block content %}
+    <main>
+        {% if items %}
+        <div class="container__main">
+            <div class="container__form">
+                <div class="title__container">
+                    Making an order
+                </div>
+                <form method="post" action="{% url 'place_an_order' %}">
+
+
+                    {% csrf_token %}
+                    <div class="content">
+                        <div class="subsection">
+                            Delivery Address:
+                        </div>
+                        <div class="nav__form">
+                            <label for="city">Your City</label>
+                            {{ form.city }}
+                        </div>
+                        <div class="address__form">
+                            <div class="castom_form">
+                                <label for="street">Your Street</label>
+                                {{ form.street }}
+                            </div>
+                            <div class="castom_form">
+                                <label for="home">Home</label>
+                                {{ form.home }}
+                            </div>
+                            <div class="castom_form">
+                                <label for="flot">Flot</label>
+                                {{ form.flot }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="subsection">
+                            Contact information:
+                        </div>
+                        <div class="nav__form">
+                            <label for="name">Name</label>
+                            {{ form.name }}
+                        </div>
+                        <div class="nav__form">
+                            <label for="surname">Surname</label>
+                            {{ form.surname }}
+                        </div>
+                        <div class="nav__form">
+                            <label for="email">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <button class="btn" type="submit">Send a request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="non_product">
+            Oops, it seems you haven't added anything to the cart.
+            <div>
+                <a href="{% url "store" %}">Go back to the store</a>
+            </div>
+        </div>
+        
+        {% endif %}
+    </main>
+{% endblock content %}  

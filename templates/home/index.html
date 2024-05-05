@@ -1,0 +1,78 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'home/style.css' %}">
+{% endblock style %} 
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<main>
+    <div class="container__body">
+        <div class="list__products">
+            {% for product in page_obj %}
+            {% if product.quantity > 0 %}
+            <div class="product">
+                <img class="filter__img" src="{{ product.preview.url }}" alt>
+                <div class="detail__prodict">
+                    <div class="title__product">
+                        {{ product.title }}
+                        {% for card_item in card_items %}
+                            {% if card_item.product.id == product.id %}
+                                {% if card_item.status %}
+                                    <span style="display:none" class="status">Status: Active</span>
+                                {% else %}
+                                    <span style="display:none" class="status">Status: Inactive</span>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="short_description">
+                        {{ product.short_description }}
+                    </div>
+                    <div class="price">
+                        {{ product.price }}
+                    </div>
+                    <form class="prodoctForm" action="{% url 'store' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <button class="btn addToCartBtn" type="submit">Add to Cart</button>
+                        <a class="btn goToCardLink" style="display: none;" href="{% url 'card' %}">Go To Cart</a>
+                        <label class="text" for="quantity">Quantity</label>
+                        <input id="xxx" name="quantity" class="quantity__product" type="number" min="1" value="1" max="{{ product.quantity }}">
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <script>
+        $('.prodoctForm').submit(function(event) {
+            event.preventDefault();
+    
+            let form = $(this);
+            let productId = form.find('input[name="product_id"]').val();
+            let quantity = form.find('input[name="quantity"]').val();
+    
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: {
+                    'product_id': productId,
+                    'quantity': quantity,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    let cartItemsCount = response.card_len;
+                    $('.quantity').text(cartItemsCount)
+                    alert('The product has been added to the cart')
+        
+                }
+            });
+        });
+    </script>
+</div>
+{% endblock %}

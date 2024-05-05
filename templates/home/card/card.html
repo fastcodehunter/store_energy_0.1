@@ -1,0 +1,62 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+
+{% block style %} <link rel="stylesheet" href={% static "home\1\style.css" %}> {% endblock style %} 
+    {% block content %}
+
+    <main>
+        <div class="title__main">
+            Card
+        </div>
+        <div class="container__main">
+            {% for item in card_items %}
+            <div class="list__products">
+
+                <div class="item__list">
+                    <div>
+                        <img class="filter__img" src="{{item.product.preview.url}}" alt="">
+                    </div>
+
+                    <div class="info__product">
+                        <div class="title__product">{{item.product.title}}</div>
+                    </div>
+                    <div class="quantity">
+                        {{item.quantity}}.pcs
+                    </div>
+                    <div class="price">
+                        {{item.price|floatformat:3}}$
+                    </div>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete" value="{{item.product.id}}">
+                    <button class="btn" type="submit">Delete</button>
+                </form>
+            </div>
+
+           
+            {%empty%}
+            <div class="empty">
+                The Basket Is Empty
+            </div>
+            {% endfor %}
+
+
+
+            {% if  card_items   %}
+
+            <div class="footer__list">
+                <div class="total__pice">
+                    $ {{total_cost|floatformat:2}} for {{lenghttt}} items
+                </div>
+                <button class="btn"><a href= {% url "place_an_order" %}> Making an order</a> </button>
+            </div>
+            
+            {% endif %}
+           
+
+
+        </div>
+    </main>
+    {% endblock content %}

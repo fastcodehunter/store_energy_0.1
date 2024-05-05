@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style %}{% endblock style %} 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>Document</title>
+</head>
+<body>
+
+    {% include 'home/include/header.html'  %}
+    <div class="img__body">
+        <img class="img__filter__body" src=" {% static "home\body.jpg" %}" alt="">
+    </div>
+    {% block content %}
+    
+    {% endblock content %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <div>
+            <a href="{% url 'store' page_obj.previous_page_number%}">Previous</a>
+        </div>
+    
+    
+        {% endif %}
+        {% for num_page in page_obj.paginator.get_elided_page_range %}
+        {% if num_page == page_obj.number %}
+        <span style="color:#ff009d ;">{{num_page}}</span>
+        {% else %}
+       <div>
+            <a href="{% url 'store' num_page%}">{{num_page}}</a>
+        </div>
+        
+        {% endif %}
+        
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <div>
+            <a href="{% url 'store' page_obj.next_page_number%}">Next</a>
+        </div>
+        
+        {% endif %}
+    </div>
+</body>
+</html>
