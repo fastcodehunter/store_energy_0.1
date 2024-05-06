@@ -5,14 +5,9 @@ from django.contrib.sessions.models import Session
 
 
 
-class OrderInline(admin.TabularInline):
-    model = Order
-    extra = 0
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display=['id','surname','email']
 
-class CardAdmin(admin.ModelAdmin):
-    inlines = [OrderInline]
 
-admin.site.register(Card, CardAdmin)
-admin.site.register(CardItem)
 admin.site.register(Products)
-admin.site.register(Order)

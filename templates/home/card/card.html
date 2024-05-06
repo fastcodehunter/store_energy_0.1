@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% block style %} <link rel="stylesheet" href={% static "home\1\style.css" %}> {% endblock style %} 
+{% block style %} <link rel="stylesheet" href={% static "home\card\style.css" %}> {% endblock style %} 
     {% block content %}
 
     <main>
@@ -50,8 +50,10 @@
                 <div class="total__pice">
                     $ {{total_cost|floatformat:2}} for {{lenghttt}} items
                 </div>
-                <button class="btn"><a href= {% url "place_an_order" %}> Making an order</a> </button>
-            </div>
+                <div style="padding-top: 20px;">
+                    <a class="btn" href= {% url "place_an_order" %}> Making an order</a>
+                </div>
+                
             
             {% endif %}
            

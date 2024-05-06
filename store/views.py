@@ -8,12 +8,33 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 
 
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views import View
+
+from .models import Products, CardItem
+
+
 class StoreView(View):
     def get(self, request, page=1):
+        sort_option = request.GET.get('sort_option')
+
         product_list = Products.objects.all()
+
+        if sort_option == 'name_asc':
+            product_list = product_list.order_by('title')
+        elif sort_option == 'name_desc':
+            product_list = product_list.order_by('-title')
+        elif sort_option == 'price_asc':
+            product_list = product_list.order_by('price')
+        elif sort_option == 'price_desc':
+            product_list = product_list.order_by('-price')
+
         paginator = Paginator(product_list, 9)
         page_obj = paginator.get_page(page)
         card_items = CardItem.objects.all()
+
         return render(request, 'home/index.html', {
             'page_obj': page_obj,
             'card_items': card_items,
@@ -52,26 +73,24 @@ class StoreView(View):
 
 def delete_card_item(card_item_id):
     try:
-        card_item = CardItem.objects.get(product_id=card_item_id)
+        card_item = CardItem.objects.filter(product_id=card_item_id)
         card_item.delete()
     except CardItem.DoesNotExist:
         pass
     
     
-def list_products(request):
+def list_products(request): 
     try:
         user_key = request.session.session_key
         card = Card.objects.get(session_user=user_key)
     except Card.DoesNotExist:
-        pass
-    
+        card=None
     
     if request.method == 'POST':
             get_product_post = request.POST.get("delete")
             delete_card_item(get_product_post)  
-            
-              
-    if user_key:
+                  
+    if user_key or card is None:
         card_items = CardItem.objects.filter(card=card)
         total_cost = 0
         lenghttt=[]
@@ -90,7 +109,7 @@ def place_an_order(request):
     user_key=request.session.session_key
     user_session=Card.objects.get(session_user=user_key)
     items = CardItem.objects.filter(card=user_session)
-
+    total_number=0
     if request.method == "POST":
         form = FormMakingAnOrder(request.POST)
         shopping_list=[]
@@ -102,17 +121,20 @@ def place_an_order(request):
             for item in items:
                 item.product.quantity -= item.quantity
                 item.product.popular+=item.quantity
+                total_number+=item.price
+                print(total_number)
                 item.product.save()
                 
                 shopping_list.append(
                     {
                         "Product name":item.product.title,
-                        'quantity':item.quantity
-                    }
+                        'quantity':item.quantity,
+                        'total number': total_number,
+                    }   
                 )
                 order.shopping_list=shopping_list
                 order.save()
-                
+                items.delete()
             get_id_order=Order.objects.filter(card=user_session).last()
             send_mail(
                     'The order has been placed',
