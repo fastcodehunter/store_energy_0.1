@@ -18,7 +18,7 @@ class Products(models.Model):
         ('Original', 'Original'),
     ]
     class Meta:  
-        verbose_name_plural = 'Cacti'
+        verbose_name_plural = 'Products'
 
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
