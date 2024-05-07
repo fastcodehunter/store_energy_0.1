@@ -5,32 +5,11 @@ from store.forms import FormMakingAnOrder
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.core.paginator import Paginator
-
-
-from django.core.paginator import Paginator
-from django.http import JsonResponse
-from django.shortcuts import render
-from django.views import View
-
-from .models import Products, CardItem
 
 
 class StoreView(View):
     def get(self, request, page=1):
-        sort_option = request.GET.get('sort_option')
-
         product_list = Products.objects.all()
-
-        if sort_option == 'name_asc':
-            product_list = product_list.order_by('title')
-        elif sort_option == 'name_desc':
-            product_list = product_list.order_by('-title')
-        elif sort_option == 'price_asc':
-            product_list = product_list.order_by('price')
-        elif sort_option == 'price_desc':
-            product_list = product_list.order_by('-price')
-
         paginator = Paginator(product_list, 9)
         page_obj = paginator.get_page(page)
         card_items = CardItem.objects.all()
@@ -77,8 +56,6 @@ def delete_card_item(card_item_id):
         card_item.delete()
     except CardItem.DoesNotExist:
         pass
-    
-    
 def list_products(request): 
     try:
         user_key = request.session.session_key
@@ -146,7 +123,6 @@ def place_an_order(request):
             return redirect('store')
     else:
         form = FormMakingAnOrder()
-
     return render(request, 'home/order/order.html', locals())
 
 

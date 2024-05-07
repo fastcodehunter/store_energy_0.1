@@ -6,19 +6,6 @@
 {% endblock style %}
 
 {% block content %}
-<div class="sorting">
-    <form action="" method="get">
-        <label for="sort_option">Sort by:</label>
-        <select name="sort_option" id="sort_option">
-            <option value="">-- Select --</option>
-            <option value="name_asc">Name (A-Z)</option>
-            <option value="name_desc">Name (Z-A)</option>
-            <option value="price_asc">Price (Low to High)</option>
-            <option value="price_desc">Price (High to Low)</option>
-        </select>
-        <button type="submit">Sort</button>
-    </form>
-</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <main>
     <div class="container__body">

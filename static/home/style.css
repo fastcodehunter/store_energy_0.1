@@ -80,7 +80,6 @@ h1 {
 }
 
 .class_card {
-
   display: flex;
   justify-content: center;
 }
@@ -186,7 +185,6 @@ main {
   color: #ff004c;
   font-size: 25px;
   border-radius: 10px;
-
 }
 
 .btn {
