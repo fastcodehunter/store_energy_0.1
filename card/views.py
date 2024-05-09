@@ -85,7 +85,7 @@ def place_an_order(request):
                 )
             return redirect('store')
         else:
-            messages.error(request, 'The fields contain errors')  # Добавление сообщения об ошибке
+            messages.error(request, 'The fields contain errors')  
     else:
         
         form = FormMakingAnOrder()
