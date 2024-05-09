@@ -1,8 +1,6 @@
-
 {% extends "home/base.html" %}
 {% load static %}
 {% block style %} <link rel="stylesheet" href={% static "home\order\style.css" %}>{% endblock style %} 
-
 
 {% block content %}
     <main>
@@ -12,9 +10,15 @@
                 <div class="title__container">
                     Making an order
                 </div>
-                <form method="post" action="{% url 'place_an_order' %}">
-
-
+                
+                <form novalidate  method="post" action="{% url 'place_an_order' %}">
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                     {% csrf_token %}
                     <div class="content">
                         <div class="subsection">
@@ -23,19 +27,47 @@
                         <div class="nav__form">
                             <label for="city">Your City</label>
                             {{ form.city }}
+                            {% if form.city.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.city.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                         <div class="address__form">
                             <div class="castom_form">
                                 <label for="street">Your Street</label>
                                 {{ form.street }}
+                                {% if form.street.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.street.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
                             </div>
                             <div class="castom_form">
                                 <label for="home">Home</label>
                                 {{ form.home }}
+                                {% if form.home.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.home.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
                             </div>
                             <div class="castom_form">
                                 <label for="flot">Flot</label>
                                 {{ form.flot }}
+                                {% if form.flot.errors %}
+                                    <ul class="errorlist">
+                                        {% for error in form.flot.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -46,14 +78,35 @@
                         <div class="nav__form">
                             <label for="name">Name</label>
                             {{ form.name }}
+                            {% if form.name.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.name.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                         <div class="nav__form">
                             <label for="surname">Surname</label>
                             {{ form.surname }}
+                            {% if form.surname.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.surname.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                         <div class="nav__form">
                             <label for="email">Email</label>
                             {{ form.email }}
+                            {% if form.email.errors %}
+                                <ul class="errorlist">
+                                    {% for error in form.email.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                         <button class="btn" type="submit">Send a request</button>
                     </div>
@@ -67,7 +120,6 @@
                 <a href="{% url "store" %}">Go back to the store</a>
             </div>
         </div>
-        
         {% endif %}
     </main>
-{% endblock content %}  
+{% endblock content %}

@@ -4,7 +4,7 @@
   box-sizing: border-box;
   font-family: "Gloria Hallelujah", cursive;
   text-decoration: none;
-
+  color: #ff004c;
 
 }
 
@@ -42,7 +42,6 @@ header {
   bottom: -2px;
   border-bottom: 4px solid transparent;
   animation: gradientBorder 7s infinite;
-
 }
 
 @keyframes gradientBorder {

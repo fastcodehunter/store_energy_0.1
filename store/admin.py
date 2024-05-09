@@ -1,5 +1,6 @@
 from django.contrib import admin
-from store.models import Products,CardItem,Card,Order
+from store.models import Products
+from card.models import Order
 from django.contrib.sessions.models import Session
 
 

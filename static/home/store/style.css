@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Gloria Hallelujah", cursive;
+    color: #ff004c;
+  }
+  
+  body {
+    background-color: #000;
+  }
+  
+  .img__filter__body {
+    position: fixed;
+    height: 100%;
+    right: 0;
+    z-index: -1;
+  }
+  
+  header {
+    height: 100px;
+  }
+  
+  .container__header {
+    position: relative;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+  
+  }
+  
+  .container__header::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: -2px;
+    border-bottom: 4px solid transparent;
+    animation: gradientBorder 7s infinite;
+  
+  }
+  
+  @keyframes gradientBorder {
+    0% {
+      border-image: linear-gradient(to right, #000, #1c3a4c, #ab0b03, #c0083a) 1;
+    }
+  
+    25% {
+      border-image: linear-gradient(to right, #c0083a, #000, #1c3a4c, #ab0b03) 1;
+    }
+  
+    50% {
+      border-image: linear-gradient(to right, #ab0b03, #c0083a, #000, #1c3a4c) 1;
+    }
+  
+    75% {
+      border-image: linear-gradient(to right, #1c3a4c, #ab0b03, #c0083a, #000) 1;
+    }
+  
+    100% {
+      border-image: linear-gradient(to right, #000, #1c3a4c, #ab0b03, #c0083a) 1;
+    }
+  }
+  
+  h1 {
+  
+    position: relative;
+    font-family: "Gloria Hallelujah", cursive;
+  
+    color: #ff004c;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-shadow: 0 0 0.15em rgb(231, 43, 18);
+    user-select: none;
+    white-space: nowrap;
+    filter: blur(0.007em);
+    animation: shake 2.5s linear forwards;
+  }
+  .class_card{
+  
+    display: flex;
+    justify-content: center;
+  }
+  .material-symbols-outlined {
+  
+    color: #ff004c;
+    border: 1px solid #ff004c;
+    padding: 3px;
+    border-radius: 10px;
+    transform: scale(1.4);
+  }
+  .quantity{
+    font-size: 25px;
+    color: #ff004c;
+  }
+  
+main{
+    max-width: 1260px;
+    margin: 100px auto;
+}
+.title__main{
+    color:#ff004c;
+    text-align: left;
+    font-size: 40px;
+}
+.container__main{
+    border: 5px solid #ff004c ;
+    border-radius: 10px;
+}
+
+.list__products{
+    padding: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid#ff004c ;
+}
+.item__list{
+    margin-block: 20px;
+    display: flex;
+    justify-content:space-between;
+
+
+}
+.filter__img{
+    max-width: 170px;
+    border: 2px solid #1c3a4c;
+    border-radius: 30px;
+    object-fit: cover;
+}
+.info__product{
+    max-width: 400px;
+    white-space: normal;
+}
+.title__product{
+    color:#ff004c;
+    text-align: left;
+    font-size: 30px;
+    text-decoration: underline;
+}
+.short__discription{
+    color:#ff004c;
+    font-size: 17px;
+}
+.quantity{
+    color:#ff004c;
+    font-size: 30px;
+}
+.price{
+    color:#ff004c;
+    font-size: 30px;
+}
+.footer__list{
+    text-align: right;
+    padding: 15px;
+}
+.total__pice{
+    color:#ff004c;
+    font-size: 27px;
+}
+.btn{
+    margin-top: 15px;
+    width: 200px;
+    padding: 5px;
+    border: none;
+    background-color:transparent ;
+    color: #c0083a;
+    font-size: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.btn{
+    margin-top: 15px;
+    width: 180px;
+    padding: 5px;
+    border: 2px solid #ff004c ;
+    background-color:transparent ;
+    color: #c0083a;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #ff004c;
+    color: #1c3a4c;
+}
+.empty{
+  text-align: center;
+  font-size: 30px ;
+  color: #c0083a;
+}

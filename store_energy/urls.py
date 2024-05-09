@@ -2,7 +2,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from store.views import StoreView,list_products,place_an_order
+from store.views import StoreView
+from card.views import list_products,place_an_order
 
 urlpatterns = [
     path('admin/',admin.site.urls,name='adminka'),
